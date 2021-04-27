@@ -1,0 +1,48 @@
+= Quick Hull of Disks in 2D
+:icons: font
+:imagesdir: http://ssalewski.de/tmp
+:source-highlighter: rouge
+:rouge-style: molokai
+
+== This is the first Nim implementation of the QuickHullDisk algorithm
+
+The Nim code follows very closely the C++ implementation available at
+
+https://github.com/vdrc/The-Source-Code-and-Benchmark-Dataset-for-QuickhullDisk
+
+and described in
+
+https://www.sciencedirect.com/science/article/pii/S0096300319306186
+
+License and copyright are the same as for the C++ implementation:
+
+Contributors: Chanyoung Song, Joonghyun Ryu, and Deok-Soo Kim.
+
+As following all the math in the paper exactly is not that easy
+I have created a first
+implementation which follows the C++ code very closely. The Nim code
+contains already the recent fixes of the C++ repository which avoids the crashes
+for disks with radius zero. The Nim code stores the disks currently as value types
+in sequences, as this was the easiest way to get it working. Changing this to
+reference types or list like container types may improve the performance.
+
+The original C++ package provides data sets with test input and output files.
+This Nim packages contains a simple test called filetest.nim which
+gets an input and an output file from the C++ package, calculates the hull
+from the input and compares the result to the provided output file. 
+
+For those people who wonder what this is all about and why one should need it:
+In 2d geometry finding the convex hull of a set of disks is a not that uncommon
+problem. Disks can be obstacles or way marks in path finding problems.
+Naive algorithm can fail for some disk arrangements or may be very slow.  
+From my knowledge the first discussion of the problem was in the Davenport paper
+from 1997, followed by a few more publications.
+
+Another reliable solution for this problem is based on the Apollonius graph, which is
+provided by the CGAL C++ library. 
+
+My intended application for this package is an experimental rubberband topological printed circuit
+board auto-router. The initial version was written in Ruby language and used the CGAL Apollonius graph.
+The Nim rubber-band router may use this package, but later routers may use strongly customized versions
+written from scratch following the original paper. 
+
